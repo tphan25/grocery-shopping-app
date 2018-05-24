@@ -1,5 +1,6 @@
 # GroceryShoppingApp
 
+This is my first real project where I'll be working with individual components to create a web application allowing for users to create a grocery list and recipe list and access details from both. I plan to go further in depth as well, perhaps adding nutrition and price estimates, perhaps I can access data from nearby stores to do so?
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.3.
 
 ## Development server
