@@ -1,7 +1,3 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { AppComponent } from './app.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingListEditComponent } from './shopping-list/shopping-list-edit/shopping-list-edit.component';
 import { RecipeListComponent } from './recipe/recipe-list/recipe-list.component';
@@ -12,31 +8,32 @@ import { RecipeComponent } from './recipe/recipe.component';
 import { DropdownDirective } from './shared/dropdown.directive'
 import { ShoppingListService } from 'src/app/shopping-list/shopping-list.service';
 import { ErrorPageComponent } from './error-page/error-page.component';
-import { AppRoutingModule } from 'src/app/app-routing.module';
+import { NgModule } from '@angular/core';
+import { Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { RecipeStartComponent } from 'src/app/recipe/recipe-start/recipe-start.component';
-import { RecipeEditComponent } from './recipe/recipe-edit/recipe-edit.component';
+import { RecipeEditComponent } from 'src/app/recipe/recipe-edit/recipe-edit.component';
+
+const appRoutes: Routes = [
+    { path: '', redirectTo: '/recipes', pathMatch: 'full' },
+    { path: 'recipes', component: RecipeComponent, children: [
+        { path: '', component: RecipeStartComponent},
+        { path: 'new', component: RecipeEditComponent },
+        { path: ':id', component: RecipeDetailComponent },
+        { path: ':id/edit', component: RecipeEditComponent }
+    ] },
+    { path: 'shopping-list', component: ShoppingListComponent }
+]
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ShoppingListComponent,
-    ShoppingListEditComponent,
-    RecipeListComponent,
-    RecipeItemComponent,
-    RecipeDetailComponent,
-    HeaderComponent,
-    RecipeComponent,
-    DropdownDirective,
-    ErrorPageComponent,
-    RecipeStartComponent,
-    RecipeEditComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    AppRoutingModule
-  ],
-  providers: [ShoppingListService],
-  bootstrap: [AppComponent]
+    imports: [
+        RouterModule.forRoot(appRoutes)
+    ],
+    exports: [
+        RouterModule
+    ]
 })
-export class AppModule { }
+
+export class AppRoutingModule {
+
+}
